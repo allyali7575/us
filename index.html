@@ -65,36 +65,39 @@
             object-fit: cover;
         }
 
+        .cards-parent {
+            height: 100vh;
+        }
+
 
         @media screen and (max-width: 768px) {
-            body {
-                transform: rotate(90deg);
-                transform-origin: center;
+
+            /* Fullscreen Background Video */
+            #background-video video {
                 width: 100vh;
-                height: 100vh;
-                overflow-x: hidden;
+
+                transform: rotate(90deg);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+            }
+
+            .cards-parent {
+                transform: rotate(90deg);
+                height: 100vw;
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 translate: -50% -50%;
 
             }
-
-            /* Fullscreen Background Video */
-            #background-video {
-                width: 100vh;
-
-            }
-
-            #background-video video {
-                width: 100vh;
-            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid main">
         <!-- Background Video -->
         <div id="background-video">
             <video autoplay loop muted playsinline>
@@ -108,9 +111,9 @@
         </audio>
 
 
-        <div class="container main">
+        <div class="container">
 
-            <div class="cards-parent d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="cards-parent d-flex justify-content-center align-items-center">
                 <div class="card" style="width: 38rem; padding: 30px;">
 
                     <div class="card-body text-center" id="q-1">
