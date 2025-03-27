@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ily</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                transform: rotate(90deg);
+                transform-origin: center;
+                width: 100vh;
+                height: 100vh;
+                overflow-x: hidden;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+
+            }
+
+            /* Fullscreen Background Video */
+            #background-video {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vh !important;
+                height: 100vh !important;
+            }
+        }
+
+
+
+        /* Fullscreen Background Video */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Hidden Audio Player */
+        #azan {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        p {
+            font-size: 1.3rem;
+        }
+
+        button {
+            margin: 8px 1.5rem 0px 1.5rem;
+            padding-left: 3rem !important;
+            padding-right: 3rem !important;
+        }
+
+        .card {
+            filter: drop-shadow(0px 48px 100px rgba(17, 12, 46, 0.15));
+            outline: none;
+            border: none;
+            transition: 0.15s ease-in-out;
+        }
+
+        .card:hover {
+            filter: drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.3));
+        }
+
+        .top-hider {
+            background: black;
+            width: 100vw;
+            height: 3.5rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            transition: 0.7s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Background Video -->
+        <div id="background-video"></div>
+
+        <!-- Hidden Audio Player -->
+        <audio id="azan" loop autoplay>
+            <source src="audio/azan.mp3" type="audio/mp3">
+        </audio>
+
+        <div class="top-hider"></div>
+
+        <div class="container main">
+
+            <div class="cards-parent d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div class="card" style="width: 38rem; padding: 30px;">
+
+                    <div class="card-body text-center" id="q-1">
+                        <p>Do you believe in Tawheed? In the oneness of God, and that no one is worthy of worship but Allah (swt)?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-2"">
+                    <p>Do you believe Prophet Muhammad (peace be upon him) is the Last Prophet of Allah (swt)?</p>
+                    <button class=" btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-3">
+                        <p>Do you believe in Wilayah of Imam Ali (a.s)? Do you believe he is the successor of Prophet Muhammad (peace be upon him)?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-4">
+                        <p>Do you believe in Immamate? The 12 Divinely Guided Leaders?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-5">
+                        <p>Do you believe in the Day of Judgment?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-6">
+                        <p>Do you love me?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-7">
+                        <p>Do you wanna be together in Jannah?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+                    <div class="card-body text-center d-none" id="q-8">
+                        <p>I love you.<br>Will you marry me?</p>
+                        <button class="btn btn-success" id="btn-yes">Yes</button>
+                        <button class="btn btn-danger" id="btn-no">No</button>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src=" js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentIndex = 1; // Start with Q-1
+            const totalQuestions = 8; // Total number of questions
+            const card = document.querySelector(".card"); // Select the card container
+
+            document.querySelectorAll(".btn-success").forEach(button => {
+                button.addEventListener("click", function () {
+                    let currentQuestion = document.getElementById(`q-${currentIndex}`);
+                    let nextQuestion = document.getElementById(`q-${currentIndex + 1}`);
+
+                    currentQuestion.classList.add("d-none"); // Hide current question
+
+                    if (nextQuestion) {
+                        nextQuestion.classList.remove("d-none"); // Show next question
+                        currentIndex++;
+                    } else {
+                        card.classList.add("d-none"); // Hide the card after the last question
+                    }
+                });
+            });
+
+            setTimeout(() => {
+                document.querySelector(".top-hider").style.opacity = "0";
+            }, 10000); // 8 seconds delay
+
+
+            let audio = document.getElementById("azan");
+            audio.volume = 1.0;  // Set volume (0.0 to 1.0)
+
+            // Play audio on first user interaction
+            document.body.addEventListener("click", function () {
+                if (audio.paused) {
+                    audio.play();
+                }
+            });
+
+            // Try autoplay (may still be blocked)
+            audio.play().catch(error => console.log("Autoplay blocked:", error));
+
+        });
+
+    </script>
+
+    <script>
+        function onYouTubeIframeAPIReady() {
+
+            // Background Video Player
+            new YT.Player('background-video', {
+                // videoId: 'LcaEx1uKAJA',
+                videoId: '4oio95864BI',
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    // playlist: 'LcaEx1uKAJA',
+                    playlist: '4oio95864BI',
+                    controls: 0,       // Hide playback controls
+                    disablekb: 1,      // Disable keyboard shortcuts
+                    fs: 0,             // Disable fullscreen button
+                    modestbranding: 1, // Remove YouTube logo
+                    rel: 0,            // No related videos
+                    showinfo: 0,       // Hide title
+                    iv_load_policy: 3, // Hide annotations
+                    mute: 1            // Mute background video
+                }
+            });
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+
+
+</body>
+
+</html>
