@@ -11,43 +11,6 @@
             overflow: hidden;
         }
 
-        @media screen and (max-width: 768px) {
-            body {
-                transform: rotate(90deg);
-                transform-origin: center;
-                width: 100vh;
-                height: 100vh;
-                overflow-x: hidden;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                translate: -50% -50%;
-
-            }
-
-            /* Fullscreen Background Video */
-            #background-video {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100vh !important;
-                height: 100vh !important;
-            }
-        }
-
-
-
-        /* Fullscreen Background Video */
-        #background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         /* Hidden Audio Player */
         #azan {
             position: absolute;
@@ -77,15 +40,55 @@
             filter: drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.3));
         }
 
-        .top-hider {
-            background: black;
-            width: 100vw;
-            height: 3.5rem;
-            position: absolute;
+        .container-fluid {
+            padding: 0;
+        }
+
+
+        #background-video {
+            position: fixed;
             top: 0;
             left: 0;
-            opacity: 1;
-            transition: 0.7s ease;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        #background-video video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            body {
+                transform: rotate(90deg);
+                transform-origin: center;
+                width: 100vh;
+                height: 100vh;
+                overflow-x: hidden;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+
+            }
+
+            /* Fullscreen Background Video */
+            #background-video {
+                width: 100vh;
+
+            }
+
+            #background-video video {
+                width: 100vh;
+            }
         }
     </style>
 </head>
@@ -93,14 +96,17 @@
 <body>
     <div class="container-fluid">
         <!-- Background Video -->
-        <div id="background-video"></div>
+        <div id="background-video">
+            <video autoplay loop muted playsinline>
+                <source src="video/karbala.mp4" type="video/mp4">
+            </video>
+        </div>
 
         <!-- Hidden Audio Player -->
         <audio id="azan" loop autoplay>
             <source src="audio/azan.mp3" type="audio/mp3">
         </audio>
 
-        <div class="top-hider"></div>
 
         <div class="container main">
 
@@ -187,9 +193,6 @@
                 });
             });
 
-            setTimeout(() => {
-                document.querySelector(".top-hider").style.opacity = "0";
-            }, 10000); // 8 seconds delay
 
 
             let audio = document.getElementById("azan");
@@ -209,31 +212,6 @@
 
     </script>
 
-    <script>
-        function onYouTubeIframeAPIReady() {
-
-            // Background Video Player
-            new YT.Player('background-video', {
-                // videoId: 'LcaEx1uKAJA',
-                videoId: '4oio95864BI',
-                playerVars: {
-                    autoplay: 1,
-                    loop: 1,
-                    // playlist: 'LcaEx1uKAJA',
-                    playlist: '4oio95864BI',
-                    controls: 0,       // Hide playback controls
-                    disablekb: 1,      // Disable keyboard shortcuts
-                    fs: 0,             // Disable fullscreen button
-                    modestbranding: 1, // Remove YouTube logo
-                    rel: 0,            // No related videos
-                    showinfo: 0,       // Hide title
-                    iv_load_policy: 3, // Hide annotations
-                    mute: 1            // Mute background video
-                }
-            });
-        }
-    </script>
-    <script src="https://www.youtube.com/iframe_api"></script>
 
 
 
