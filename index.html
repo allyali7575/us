@@ -52,7 +52,7 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            z-index: -1;
+            z-index: 1;
         }
 
         #background-video video {
@@ -66,6 +66,17 @@
         }
 
         .cards-parent {
+            height: 100vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            z-index: 2;
+        }
+
+        .bg-img {
+            background: url('video/karbalapic.png') center center/cover;
+            width: 100vw;
             height: 100vh;
         }
 
@@ -92,6 +103,16 @@
                 translate: -50% -50%;
 
             }
+
+            .bg-img {
+                transform: rotate(90deg);
+                width: 100vh;
+                height: 100vw;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+            }
         }
     </style>
 </head>
@@ -99,6 +120,7 @@
 <body>
     <div class="container-fluid main">
         <!-- Background Video -->
+        <div class="bg-img"></div>
         <div id="background-video">
             <video autoplay loop muted playsinline>
                 <source src="video/karbala.mp4" type="video/mp4">
